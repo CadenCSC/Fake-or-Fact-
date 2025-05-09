@@ -4,14 +4,14 @@ import random
 root = tk.Tk()
 root.title("Fake or Fact")
 root.geometry('1350x800')
-root.configure(bg="lightgrey")
+root.configure(bg="darkgrey")
 
-Titlelbl = tk.Label(root, text = "Fake or Fact", bg="lightgrey")
-Titlelbl.place(x = 0, y = 40)
-Titlelbl.config(font=("Bebas Neue", 40))
+Titlelbl = tk.Label(root, text = "Fake or Fact", bg="darkgrey")
+Titlelbl.place(relx = 0.5, rely = 0.1, anchor = "center")
+Titlelbl.config(font=("BebasNeue-Regular.ttf", 40))
 
-def questions():
-    question_list={
+
+question_list= {
         "NASA announced it will send cats to Mars to test their ability to always land on their feet.": False,
         "A penguin won mayoral elections in a small town in Norway.": True,
         "Google plans to replace all search results with AI-generated memes.": False,
@@ -116,6 +116,11 @@ def questions():
         "The moon is made of cheese, but only in Switzerland.": False
     }
 
+def random_question():
+    random_question = random.choice(list(question_list.keys()))
+    Questionlbl = tk.Label(root, text = (random_question), justify= "center", bg = "darkgrey", font=("BebasNeue-Regular.ttf", 20), wraplength=800)
+    Questionlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
+
 def score():
     score = 0
 
@@ -126,9 +131,11 @@ def factclicked():
     Titlelbl.configure(text= "FACT")
     
 btnfake = tk.Button(root, text = "FAKE" , bg = "red", fg = "White", padx = 200, pady = 40, command=fakeclicked)
-btnfake.place(x = 40, y = 650)
+btnfake.place(relx = 0.1, rely = 0.8, anchor = "w")
 
 btnfact = tk.Button(root, text = "FACT", bg = "green", fg = "White", padx=  200, pady = 40, command=factclicked)
-btnfact.place(x = 875, y =650)
+btnfact.place(relx = 0.9, rely = 0.8, anchor = "e")
+
+random_question()
 
 root.mainloop()

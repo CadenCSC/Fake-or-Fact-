@@ -131,8 +131,9 @@ def random_question():
     else:
         Questionlbl = tk.Label(root, text = (random_question), justify= "center", bg = "darkgrey", font=("BebasNeue-Regular.ttf", 20), wraplength=800)
         Questionlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
+#luke was here
 
-
+#hello
 def fakeclicked():
     global score
 

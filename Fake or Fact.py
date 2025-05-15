@@ -10,6 +10,11 @@ Titlelbl = tk.Label(root, text = "Fake or Fact", bg="darkgrey")
 Titlelbl.place(relx = 0.5, rely = 0.1, anchor = "center")
 Titlelbl.config(font=("BebasNeue-Regular.ttf", 40))
 
+score = 0
+
+scoretxt = tk.Label(root, text = f"Score: {score}", bg = "darkgrey")
+scoretxt.place(relx= 0.9, rely = 0.1)
+
 
 question_list= {
         "NASA announced it will send cats to Mars to test their ability to always land on their feet.": False,
@@ -117,38 +122,56 @@ question_list= {
     }
 
 def random_question():
-    global random_question, correct_answer
+    global correct_answer, Questionlbl
     random_question = random.choice(list(question_list.keys()))
     correct_answer = question_list[random_question]
-    Questionlbl = tk.Label(root, text = (random_question), justify= "center", bg = "darkgrey", font=("BebasNeue-Regular.ttf", 20), wraplength=800)
-    Questionlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
 
-
-score = 0
-
-
-def answer_window():
-    answer_window = tk.Toplevel()
-    answer_window.title("ANSWER")
+    if "Questionlbl" in globals():
+        Questionlbl.config(text = random_question)
+    else:
+        Questionlbl = tk.Label(root, text = (random_question), justify= "center", bg = "darkgrey", font=("BebasNeue-Regular.ttf", 20), wraplength=800)
+        Questionlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
 
 
 def fakeclicked():
-    Titlelbl.configure(text= "FAKE")
+    global score
+
+    answer_window = tk.Toplevel()
+    answer_window.title("ANSWER")
+    if correct_answer == False:
+        score += 1
+        latest_answer = "CORRECT"
+        aswrlbl = tk.Label(answer_window, text = latest_answer)
+        aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
+        scoretxt.config(text = f"Score: {score}")
+    else:
+        score += 0
+        latest_answer = "INCORRECT"
+        aswrlbl = tk.Label(answer_window, text = latest_answer)
+        aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
+
+    random_question()
 
 def factclicked():
     global score
+
+    answer_window = tk.Toplevel()
+    answer_window.title("ANSWER")
 
     if correct_answer == True:
         score += 1
         latest_answer = "CORRECT"
         aswrlbl = tk.Label(answer_window, text = latest_answer)
-        answer_window()
+        aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
+        scoretxt.config(text = f"Score: {score}")
     else:
         score += 0
         latest_answer = "INCORRECT"
         aswrlbl = tk.Label(answer_window, text = latest_answer)
-        answer_window()
-    
+        aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
+
+    random_question()
+
 btnfake = tk.Button(root, text = "FAKE" , bg = "red", fg = "White", padx = 200, pady = 40, command=fakeclicked)
 btnfake.place(relx = 0.1, rely = 0.8, anchor = "w")
 

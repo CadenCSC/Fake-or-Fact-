@@ -1,18 +1,20 @@
 import tkinter as tk
 import random
+import customtkinter
 
-root = tk.Tk()
-root.title("Fake or Fact")
+root = customtkinter.CTk()
+root.title("Fake or Fact?")
 root.geometry('1350x800')
-root.configure(bg="darkgrey")
+customtkinter.set_appearance_mode("dark")
 
-Titlelbl = tk.Label(root, text = "Fake or Fact", bg="darkgrey")
+Titlelbl = customtkinter.CTkLabel(root, text = "Fake or Fact")
 Titlelbl.place(relx = 0.5, rely = 0.1, anchor = "center")
-Titlelbl.config(font=("BebasNeue-Regular.ttf", 40))
+font = customtkinter.CTkFont(family="BebasNeue-Regular", size=40)
+Titlelbl.configure(font=font)
 
 score = 0
 
-scoretxt = tk.Label(root, text = f"Score: {score}", bg = "darkgrey")
+scoretxt = customtkinter.CTkLabel(root, text = f"Score: {score}")
 scoretxt.place(relx= 0.9, rely = 0.1)
 
 
@@ -129,26 +131,26 @@ def random_question():
     if "Questionlbl" in globals():
         Questionlbl.config(text = random_question)
     else:
-        Questionlbl = tk.Label(root, text = (random_question), justify= "center", bg = "darkgrey", font=("BebasNeue-Regular.ttf", 20), wraplength=800)
+        font_question = customtkinter.CTkFont(family="BebasNeue-Regular", size=20)
+        Questionlbl = customtkinter.CTkLabel(root, text=random_question, text_color="white", font=font_question, wraplength=800, justify="center")
         Questionlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
-#luke was here
 
-#hello
+
 def fakeclicked():
     global score
 
-    answer_window = tk.Toplevel()
+    answer_window = customtkinter.CTkToplevel()
     answer_window.title("ANSWER")
     if correct_answer == False:
         score += 1
         latest_answer = "CORRECT"
-        aswrlbl = tk.Label(answer_window, text = latest_answer)
+        aswrlbl = customtkinter.CTkLabel(answer_window, text = latest_answer)
         aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
         scoretxt.config(text = f"Score: {score}")
     else:
         score += 0
         latest_answer = "INCORRECT"
-        aswrlbl = tk.Label(answer_window, text = latest_answer)
+        aswrlbl = customtkinter.CTkLabel(answer_window, text = latest_answer)
         aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
 
     random_question()
@@ -156,27 +158,29 @@ def fakeclicked():
 def factclicked():
     global score
 
-    answer_window = tk.Toplevel()
+    answer_window = customtkinter.CTkToplevel()
     answer_window.title("ANSWER")
 
     if correct_answer == True:
         score += 1
         latest_answer = "CORRECT"
-        aswrlbl = tk.Label(answer_window, text = latest_answer)
+        aswrlbl = customtkinter.CTkLabel(answer_window, text = latest_answer)
         aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
         scoretxt.config(text = f"Score: {score}")
     else:
         score += 0
         latest_answer = "INCORRECT"
-        aswrlbl = tk.Label(answer_window, text = latest_answer)
+        aswrlbl = customtkinter.CTkLabel(answer_window, text = latest_answer)
         aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
 
     random_question()
 
-btnfake = tk.Button(root, text = "FAKE" , bg = "red", fg = "White", padx = 200, pady = 40, command=fakeclicked)
+btnfake = customtkinter.CTkButton(root, text = "FAKE" , bg_color = "red", text_color = "White", command=fakeclicked)
+btnfake.pack( padx=  200, pady = 40)
 btnfake.place(relx = 0.1, rely = 0.8, anchor = "w")
 
-btnfact = tk.Button(root, text = "FACT", bg = "green", fg = "White", padx=  200, pady = 40, command=factclicked)
+btnfact = customtkinter.CTkButton(root, text = "FACT", bg_color = "green", text_color = "White", command=factclicked)
+btnfact.pack( padx=  200, pady = 40)
 btnfact.place(relx = 0.9, rely = 0.8, anchor = "e")
 
 random_question()

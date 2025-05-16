@@ -1,21 +1,41 @@
 import tkinter as tk
-import random
 import customtkinter
+import os
+import random
 
 root = customtkinter.CTk()
 root.title("Fake or Fact?")
 root.geometry('1350x800')
 customtkinter.set_appearance_mode("dark")
 
+def titlerectangle(canvas, x1, y1, x2, y2, radius=25, **kwargs):
+    points = [
+        (x1+radius, y1), (x-radius, y1),
+        (x2, y1), (x2, y1+radius),          
+        (x2, y2-radius), (x2, y2),           
+        (x2-radius, y2), (x1+radius, y2),    
+        (x1, y2), (x1, y2-radius),           
+        (x1, y1+radius), (x1, y1) 
+    ]
+
+
+font_path = os.path.join(os.path.dirname(__file__), "BebasNeue-Regular.ttf")
+customtkinter.FontManager.load_font(font_path)
+
+Titlefont = customtkinter.CTkFont(family="Bebas Neue", size=100)
+Questionfont = customtkinter.CTkFont(family="Bebas Neue", size=60)
+Buttonfont = customtkinter.CTkFont(family="Bebas Neue", size=35)
+Scorefont = customtkinter.CTkFont(family="Bebas Neue", size=50)
+
+
 Titlelbl = customtkinter.CTkLabel(root, text = "Fake or Fact")
 Titlelbl.place(relx = 0.5, rely = 0.1, anchor = "center")
-font = customtkinter.CTkFont(family="BebasNeue-Regular", size=40)
-Titlelbl.configure(font=font)
+Titlelbl.configure(font=Titlefont)
 
 score = 0
-
 scoretxt = customtkinter.CTkLabel(root, text = f"Score: {score}")
-scoretxt.place(relx= 0.9, rely = 0.1)
+scoretxt.configure(font=Scorefont)
+scoretxt.place(relx= 0.85, rely = 0.1)
 
 
 question_list= {
@@ -129,10 +149,10 @@ def random_question():
     correct_answer = question_list[random_question]
 
     if "Questionlbl" in globals():
-        Questionlbl.config(text = random_question)
+        Questionlbl.configure(text = random_question)
     else:
-        font_question = customtkinter.CTkFont(family="BebasNeue-Regular", size=20)
-        Questionlbl = customtkinter.CTkLabel(root, text=random_question, text_color="white", font=font_question, wraplength=800, justify="center")
+        Questionlbl = customtkinter.CTkLabel(root, text=random_question, text_color="white", wraplength=800, justify="center")
+        Questionlbl.configure(font=Questionfont)
         Questionlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
 
 
@@ -146,7 +166,7 @@ def fakeclicked():
         latest_answer = "CORRECT"
         aswrlbl = customtkinter.CTkLabel(answer_window, text = latest_answer)
         aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
-        scoretxt.config(text = f"Score: {score}")
+        scoretxt.configure(text = f"Score: {score}")
     else:
         score += 0
         latest_answer = "INCORRECT"
@@ -166,7 +186,7 @@ def factclicked():
         latest_answer = "CORRECT"
         aswrlbl = customtkinter.CTkLabel(answer_window, text = latest_answer)
         aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
-        scoretxt.config(text = f"Score: {score}")
+        scoretxt.configure(text = f"Score: {score}")
     else:
         score += 0
         latest_answer = "INCORRECT"
@@ -175,14 +195,18 @@ def factclicked():
 
     random_question()
 
-btnfake = customtkinter.CTkButton(root, text = "FAKE" , bg_color = "red", text_color = "White", command=fakeclicked)
-btnfake.pack( padx=  200, pady = 40)
-btnfake.place(relx = 0.1, rely = 0.8, anchor = "w")
+def buttons():
+    btnfake = customtkinter.CTkButton(root, text = "FAKE" , text_color = "White", command=fakeclicked)
+    btnfake.configure(fg_color = "Red", width = 400, height = 80, font=Buttonfont)
+    btnfake.pack( padx=  200, pady = 40)
+    btnfake.place(relx = 0.1, rely = 0.8, anchor = "w")
 
-btnfact = customtkinter.CTkButton(root, text = "FACT", bg_color = "green", text_color = "White", command=factclicked)
-btnfact.pack( padx=  200, pady = 40)
-btnfact.place(relx = 0.9, rely = 0.8, anchor = "e")
+    btnfact = customtkinter.CTkButton(root, text = "FACT", text_color = "White", command=factclicked)
+    btnfact.configure(fg_color = "Green", width = 400, height = 80, font=Buttonfont)
+    btnfact.pack( padx=  200, pady = 40)
+    btnfact.place(relx = 0.9, rely = 0.8, anchor = "e")
 
+buttons()
 random_question()
 
 root.mainloop()

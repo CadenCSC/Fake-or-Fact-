@@ -1,23 +1,12 @@
-import tkinter as tk
 import customtkinter
 import os
 import random
+import tkinter as tk
 
 root = customtkinter.CTk()
 root.title("Fake or Fact?")
 root.geometry('1350x800')
 customtkinter.set_appearance_mode("dark")
-
-def titlerectangle(canvas, x1, y1, x2, y2, radius=25, **kwargs):
-    points = [
-        (x1+radius, y1), (x-radius, y1),
-        (x2, y1), (x2, y1+radius),          
-        (x2, y2-radius), (x2, y2),           
-        (x2-radius, y2), (x1+radius, y2),    
-        (x1, y2), (x1, y2-radius),           
-        (x1, y1+radius), (x1, y1) 
-    ]
-
 
 font_path = os.path.join(os.path.dirname(__file__), "BebasNeue-Regular.ttf")
 customtkinter.FontManager.load_font(font_path)
@@ -159,8 +148,11 @@ def random_question():
 def fakeclicked():
     global score
 
-    answer_window = customtkinter.CTkToplevel()
+    answer_window = customtkinter.CTkToplevel(root)
     answer_window.title("ANSWER")
+    answer_window.transient(root)
+    answer_window.grab_set()
+
     if correct_answer == False:
         score += 1
         latest_answer = "CORRECT"
@@ -178,8 +170,10 @@ def fakeclicked():
 def factclicked():
     global score
 
-    answer_window = customtkinter.CTkToplevel()
+    answer_window = customtkinter.CTkToplevel(root)
     answer_window.title("ANSWER")
+    answer_window.transient(root)
+    answer_window.grab_set()
 
     if correct_answer == True:
         score += 1
@@ -208,5 +202,6 @@ def buttons():
 
 buttons()
 random_question()
+
 
 root.mainloop()

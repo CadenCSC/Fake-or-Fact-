@@ -1,32 +1,35 @@
-import customtkinter
-import os
-import random
-import tkinter as tk
+#Caden Read
+#L2 CSC
 
-root = customtkinter.CTk()
-root.title("Fake or Fact?")
-root.geometry('1350x800')
-customtkinter.set_appearance_mode("dark")
+import customtkinter #Imports a custom version of tkinter with better customisation options
+import os #Imports the users OS 
+import random #Imports the ability for 
+import tkinter as tk #Imports Tkinter as TK which allows the user to type TK instead of tkinter
 
-font_path = os.path.join(os.path.dirname(__file__), "BebasNeue-Regular.ttf")
-customtkinter.FontManager.load_font(font_path)
+root = customtkinter.CTk() #Sets up the main window
+root.title("Fake or Fact?") #Sets the text of the title of the main window
+root.geometry('1350x800') #Sets the size of thw window in pixels
+customtkinter.set_appearance_mode("dark") #Sets the window mode to dark
 
+font_path = os.path.join(os.path.dirname(__file__), "BebasNeue-Regular.ttf") #Uses the OS import to access the users folder that the program is located inside and searches for the file BebasNeue-Regular.ttf
+customtkinter.FontManager.load_font(font_path) #Uses the Custom tkinter import to handle importing the font
+#Sets the Bebas Neue
 Titlefont = customtkinter.CTkFont(family="Bebas Neue", size=100)
 Questionfont = customtkinter.CTkFont(family="Bebas Neue", size=60)
 Buttonfont = customtkinter.CTkFont(family="Bebas Neue", size=35)
 Scorefont = customtkinter.CTkFont(family="Bebas Neue", size=50)
 
 
-Titlelbl = customtkinter.CTkLabel(root, text = "Fake or Fact")
-Titlelbl.place(relx = 0.5, rely = 0.1, anchor = "center")
-Titlelbl.configure(font=Titlefont)
+Titlelbl = customtkinter.CTkLabel(root, text = "Fake or Fact?") #Creates a label on the main window and sets the text to Fake or fact?
+Titlelbl.place(relx = 0.5, rely = 0.1, anchor = "center") #Sets the location of the label to 50% of the x pixels, and 10% of the y pixels
+Titlelbl.configure(font=Titlefont) #Uses the CTK configure method to set the font of the text to the Titlefont variable
 
-score = 0
-scoretxt = customtkinter.CTkLabel(root, text = f"Score: {score}")
-scoretxt.configure(font=Scorefont)
-scoretxt.place(relx= 0.85, rely = 0.1)
+score = 0 #Sets score to 0
+scoretxt = customtkinter.CTkLabel(root, text = f"Score: {score}") #Creates the score label and sets the text to score and the value of the score variable
+scoretxt.configure(font=Scorefont) #Uses the CTK configure method to set the font of the text to the Titlefont variable
+scoretxt.place(relx= 0.85, rely = 0.1)#Sets the location of the label to 85% of the x pixels, and 10% of the y pixels
 
-
+#List of questions with the key being their true or false answer
 question_list= {
         "NASA announced it will send cats to Mars to test their ability to always land on their feet.": False,
         "A penguin won mayoral elections in a small town in Norway.": True,
@@ -132,16 +135,16 @@ question_list= {
         "The moon is made of cheese, but only in Switzerland.": False
     }
 
-def random_question():
-    global correct_answer, Questionlbl
-    random_question = random.choice(list(question_list.keys()))
-    correct_answer = question_list[random_question]
+def random_question(): #Function for random_question
+    global correct_answer, Questionlbl #Sets the variables 
+    random_question = random.choice(list(question_list.keys())) #Uses the random import to pick a random question and key from the question_list dictionary
+    correct_answer = question_list[random_question] #
 
     if "Questionlbl" in globals():
         Questionlbl.configure(text = random_question)
     else:
         Questionlbl = customtkinter.CTkLabel(root, text=random_question, text_color="white", wraplength=800, justify="center")
-        Questionlbl.configure(font=Questionfont)
+        Questionlbl.configure(font=Questionfont) #Uses the CTK configure method to set the font of the text to the Titlefont variable
         Questionlbl.place(relx = 0.5, rely = 0.3, anchor = "center")
 
 
@@ -174,6 +177,21 @@ def factclicked():
     answer_window.title("ANSWER")
     answer_window.transient(root)
     answer_window.grab_set()
+
+    win_width = 300
+    win_height = 200
+    answer_window.geometry(f"{win_width}x{win_height}")
+
+    root.update_idletasks() #Forces tkinter event loop to update layout info of root window
+    root_x = root.winfo_x() #Gets the x position of root window
+    root_y = root.winfo_y() #Gets the y position of root window
+    root_width = root.winfo_width()
+    root_heigt = root.winfo_height()
+    x = root_x
+
+
+
+
 
     if correct_answer == True:
         score += 1

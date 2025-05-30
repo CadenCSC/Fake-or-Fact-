@@ -138,7 +138,7 @@ question_list= {
 def random_question(): #Function for random_question
     global correct_answer, Questionlbl #Sets the variables 
     random_question = random.choice(list(question_list.keys())) #Uses the random import to pick a random question and key from the question_list dictionary
-    correct_answer = question_list[random_question] #
+    correct_answer = question_list[random_question] #It sets the correct answer
 
     if "Questionlbl" in globals():
         Questionlbl.configure(text = random_question)
@@ -178,17 +178,7 @@ def factclicked():
     answer_window.transient(root)
     answer_window.grab_set()
 
-    win_width = 300
-    win_height = 200
-    answer_window.geometry(f"{win_width}x{win_height}")
-
-    root.update_idletasks() #Forces tkinter event loop to update layout info of root window
-    root_x = root.winfo_x() #Gets the x position of root window
-    root_y = root.winfo_y() #Gets the y position of root window
-    root_width = root.winfo_width()
-    root_heigt = root.winfo_height()
-    x = root_x
-
+    answer_window.geometry('300x200')
 
 
 

@@ -40,10 +40,11 @@
     - Run the file installrequirements.bat
     -This will install the required dependences to run the programme
 
-3. **Run the programme**
-    **Run the python file as administrator**, this is due to it needing to use the OS dependence to import the font without the user needing to install the font.
+3. **Run the programme as administrator**, this is due to it needing to use the OS dependence to import the font without the user needing to install the font.
           - You can run the python file as admininstrator by clicking on the empty space demonstrated in this image and typing CMD and clicking enter ![image](https://github.com/user-attachments/assets/4c0e3b15-2ee7-4fc0-9106-b3ffd8d4e258)
           - Next type 'Fake-or-fact.py' this should run the programme
+   **OR**
+   
     **Run the file using VSCode**
           - Right click the file, hover open with, then Visual Studio Code
           - Next click the play button ![image](https://github.com/user-attachments/assets/c85e4e63-abcb-48a5-92eb-f8ce15033640)

@@ -14,7 +14,7 @@
 
 ---
 
-#Preview
+**Preview**
 
 *![alt text](image.png)*
 
@@ -33,7 +33,7 @@
  ## Installation
 
 1.  **Clone the repository**
-    git clone https://github.com/CadenCSC/Fake-or-Fact-.git
+    - git clone https://github.com/CadenCSC/Fake-or-Fact-.git
     - This most likely would be found in 'C:\Users\yourname'
 
 2. **Install the dependinces**

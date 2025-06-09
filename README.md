@@ -24,9 +24,9 @@
 
  - **Python 3.12**
  - **customtkinter** - for modern GUI creation
- - 'tkinter' - base GUI framework
- - 'random' - to change the news that is displayed
- -'os' - to handle importation of the font
+ - **tkinter** - base GUI framework
+ - **random** - to change the news that is displayed
+ - **os** - to handle importation of the font
 
  ---
 

@@ -33,7 +33,7 @@
  ## Installation
 
 1.  **Clone the repository**
-    - Go to CMD and input this 'git clone https://github.com/CadenCSC/Fake-or-Fact-.git'
+    - Go to Command promt and input this 'git clone https://github.com/CadenCSC/Fake-or-Fact-.git'
     - This most likely would be found in 'C:\Users\yourname'
 
 2. **Install the dependinces**

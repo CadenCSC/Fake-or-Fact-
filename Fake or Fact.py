@@ -29,6 +29,10 @@ scoretxt = customtkinter.CTkLabel(root, text = f"Score: {score}") #Creates the s
 scoretxt.configure(font=Scorefont) #Uses the CTK configure method to set the font of the text to the Titlefont variable
 scoretxt.place(relx= 0.85, rely = 0.1)#Sets the location of the label to 85% of the x pixels, and 10% of the y pixels
 
+question_count = 0 #Sets the question count to 0
+total_questions = 30 #Sets the total number of questions to 30
+passing_score  = 24 #Sets the passing score to 24
+
 #List of questions with the key being their true or false answer
 question_list= {
         "NASA announced it will send cats to Mars to test their ability to always land on their feet.": False,
@@ -135,6 +139,18 @@ question_list= {
         "The moon is made of cheese, but only in Switzerland.": False
     }
 
+def buttons(): #Create the button function
+    global btnfake, btnfact #Sets the buttons to global so they can be accessed outside of the function
+    btnfake = customtkinter.CTkButton(root, text = "FAKE" , text_color = "White", command=fakeclicked) #Sets up the fake button with the text fake and sets the command of it to the fakeclicked fucntion
+    btnfake.configure(fg_color = "Red", width = 400, height = 80, font=Buttonfont) #Configures the fake button to be red and sets its font to Buttonfont
+    btnfake.pack( padx=  200, pady = 40) #Adds padding around the button so its not just the size of the text
+    btnfake.place(relx = 0.1, rely = 0.8, anchor = "w") #Places the button in the correct place and sets its anchor to the west side of the button
+
+    btnfact = customtkinter.CTkButton(root, text = "FACT", text_color = "White", command=factclicked) #Sets up the fact button with the text fact and sets the command of it to the factclicked fucntion
+    btnfact.configure(fg_color = "Green", width = 400, height = 80, font=Buttonfont) #Configures the fact button to be red and sets its font to Buttonfont
+    btnfact.pack( padx=  200, pady = 40) #Adds padding around the button so its not just the size of the text
+    btnfact.place(relx = 0.9, rely = 0.8, anchor = "e") #Places the button in the correct place and sets its anchor to the east side of the button
+
 def random_question(): #Function for random_question
     global correct_answer, Questionlbl #Sets the variables 
     random_question = random.choice(list(question_list.keys())) #Uses the random import to pick a random question and key from the question_list dictionary
@@ -148,62 +164,92 @@ def random_question(): #Function for random_question
         Questionlbl.place(relx = 0.5, rely = 0.3, anchor = "center") #Places the questionlbl at the correct place. 
 
 def fakeclicked():
-    global score #sets the score variable to global so it can be accessed and change outside of the function
+    global question_count #Sets the question count variable to global so it can be accessed and changed outside of the function
+    question_count += 1 #Adds 1 to the question count variable
 
-    answer_window = customtkinter.CTkToplevel(root) #Creates a new window ontop of the old window
-    answer_window.title("ANSWER") #Sets the title of the window
-    answer_window.transient(root) #Makes the window be associated with the root window
-    answer_window.grab_set() #Makes it so the user has to interact with this window before the main window.
+    if question_count == total_questions: #Checks if the question count is equal to the total number of questions
+        show_results() #Runs the show results function to show the results of the game
 
-    answer_window.geometry('300x200') #Sets the Size of the window
-
-    if correct_answer == False: #Checks if the users answer is the same as the one in the dictionary of questions.
-        score += 1 #Adds 1 to the score variable
-        latest_answer = "CORRECT" #Sets the latest answer varible to correct
-        aswrlbl = customtkinter.CTkLabel(answer_window, text = latest_answer) #Makes text on the answer window and sets the text to the latest answer varibale.
-        aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center") #Places the aswrlbl text in the center of the window
-        scoretxt.configure(text = f"Score: {score}") #Changes the text of the score variable.
     else:
-        latest_answer = "INCORRECT" #Sets the latest answer varible to incorrect
-        aswrlbl = customtkinter.CTkLabel(answer_window, text = latest_answer) #Makes text on the answer window and sets the text to the latest answer varibale.
-        aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center") #Places the aswrlbl text in the center of the window
 
-    random_question() #Runs the random question function to get a new question
+        global score #sets the score variable to global so it can be accessed and change outside of the function
+
+        answer_window = customtkinter.CTkToplevel(root) #Creates a new window ontop of the old window
+        answer_window.title("ANSWER") #Sets the title of the window
+        answer_window.transient(root) #Makes the window be associated with the root window
+        answer_window.grab_set() #Makes it so the user has to interact with this window before the main window.
+
+        answer_window.geometry('300x200') #Sets the Size of the window
+
+        if correct_answer == False: #Checks if the users answer is the same as the one in the dictionary of questions.
+            score += 1 #Adds 1 to the score variable
+            latest_answer = "CORRECT" #Sets the latest answer varible to correct
+            aswrlbl = customtkinter.CTkLabel(answer_window, text = latest_answer) #Makes text on the answer window and sets the text to the latest answer varibale.
+            aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center") #Places the aswrlbl text in the center of the window
+            scoretxt.configure(text = f"Score: {score}") #Changes the text of the score variable.
+        else:
+            latest_answer = "INCORRECT" #Sets the latest answer varible to incorrect
+            aswrlbl = customtkinter.CTkLabel(answer_window, text = latest_answer) #Makes text on the answer window and sets the text to the latest answer varibale.
+            aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center") #Places the aswrlbl text in the center of the window
+
+        random_question() #Runs the random question function to get a new question
+
+    result_label = customtkinter.CTkLabel(answer_window, text=f"Question {question_count} of {total_questions}") #Creates a label in the answer window to show the question count
+    result_label.place(relx=0.5, rely=0.1, anchor="center") #Places the result label in the center of the window
 
 def factclicked():
-    global score #sets the score variable to global so it can be accessed and change outside of the function
+    global question_count #Sets the question count variable to global so it can be accessed and changed outside of the function
+    question_count += 1 #Adds 1 to the question count variable
 
-    answer_window = customtkinter.CTkToplevel(root) #Creates a new window ontop of the old window
-    answer_window.title("ANSWER") #Sets the title of the window
-    answer_window.transient(root) #Makes the window be associated with the root window
-    answer_window.grab_set() #Makes it so the user has to interact with this window before the main window.
+    if question_count == total_questions: #Checks if the question count is equal to the total number of questions
+        show_results() #Runs the show results function to show the results of the game
 
-
-    answer_window.geometry('300x200') #Sets the size of the window
- 
-    if correct_answer == True: #Checks if the users answer is the same as the one in the dictionary of questions.
-        score += 1 #Adds 1 to the score variable
-        latest_answer = "CORRECT" #Sets the latest answer varible to correct
-        aswrlbl = customtkinter.CTkLabel(answer_window, text = latest_answer) #Makes text on the answer window and sets the text to the latest answer varibale.
-        aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center") #Places the aswrlbl text in the center of the window
-        scoretxt.configure(text = f"Score: {score}") #Changes the text of the score variable.
     else:
-        latest_answer = "INCORRECT" #Sets the latest answer varible to incorrect
-        aswrlbl = customtkinter.CTkLabel(answer_window, text = latest_answer) #Makes text on the answer window and sets the text to the latest answer varibale.
-        aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center") #Places the aswrlbl text in the center of the window
 
-    random_question() #Runs the random question function to get a new question
+        global score #sets the score variable to global so it can be accessed and change outside of the function
 
-def buttons(): #Create the button function
-    btnfake = customtkinter.CTkButton(root, text = "FAKE" , text_color = "White", command=fakeclicked) #Sets up the fake button with the text fake and sets the command of it to the fakeclicked fucntion
-    btnfake.configure(fg_color = "Red", width = 400, height = 80, font=Buttonfont) #Configures the fake button to be red and sets its font to Buttonfont
-    btnfake.pack( padx=  200, pady = 40) #Adds padding around the button so its not just the size of the text
-    btnfake.place(relx = 0.1, rely = 0.8, anchor = "w") #Places the button in the correct place and sets its anchor to the west side of the button
+        answer_window = customtkinter.CTkToplevel(root) #Creates a new window ontop of the old window
+        answer_window.title("ANSWER") #Sets the title of the window
+        answer_window.transient(root) #Makes the window be associated with the root window
+        answer_window.grab_set() #Makes it so the user has to interact with this window before the main window.
 
-    btnfact = customtkinter.CTkButton(root, text = "FACT", text_color = "White", command=factclicked) #Sets up the fact button with the text fact and sets the command of it to the factclicked fucntion
-    btnfact.configure(fg_color = "Green", width = 400, height = 80, font=Buttonfont) #Configures the fact button to be red and sets its font to Buttonfont
-    btnfact.pack( padx=  200, pady = 40) #Adds padding around the button so its not just the size of the text
-    btnfact.place(relx = 0.9, rely = 0.8, anchor = "e") #Places the button in the correct place and sets its anchor to the east side of the button
+
+        answer_window.geometry('300x200') #Sets the size of the window
+    
+        if correct_answer == True: #Checks if the users answer is the same as the one in the dictionary of questions.
+            score += 1 #Adds 1 to the score variable
+            latest_answer = "CORRECT" #Sets the latest answer varible to correct
+            aswrlbl = customtkinter.CTkLabel(answer_window, text = latest_answer) #Makes text on the answer window and sets the text to the latest answer varibale.
+            aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center") #Places the aswrlbl text in the center of the window
+            scoretxt.configure(text = f"Score: {score}") #Changes the text of the score variable.
+        else:
+            latest_answer = "INCORRECT" #Sets the latest answer varible to incorrect
+            aswrlbl = customtkinter.CTkLabel(answer_window, text = latest_answer) #Makes text on the answer window and sets the text to the latest answer varibale.
+            aswrlbl.place(relx = 0.5, rely = 0.3, anchor = "center") #Places the aswrlbl text in the center of the window
+
+        random_question() #Runs the random question function to get a new question
+
+        result_label = customtkinter.CTkLabel(answer_window, text=f"Question {question_count} of {total_questions}") #Creates a label in the answer window to show the question count
+        result_label.place(relx=0.5, rely=0.1, anchor="center") #Places the result label in the center of the window
+
+def show_results(): #Function to show the results of the game
+    btnfake.configure(state="disabled") #Disables the fake button so it cannot be clicked
+    btnfact.configure(state="disabled") #Disables the fact button so it cannot be clicked
+
+    result_window = customtkinter.CTkToplevel(root) #Creates a new window ontop of the old window
+    result_window.title("RESULTS") #Sets the title of the window
+    result_window.transient(root) #Makes the window be associated with the root window
+    result_window.grab_set() #Makes it so the user has to interact with this window before the main window.
+    result_window.geometry('400x300') #Sets the size of the window
+
+    if score >= passing_score: #Checks if the score is greater than or equal to the passing score
+        result_text = f"Congratulations! You passed with a score of {score} out of {total_questions}!" #Sets the result text to show the score
+    else: #If the score is less than the passing score
+        result_text = f"You did not pass. Your score is {score} out of {total_questions}. Better luck next time!" #Sets the result text to show the score
+
+    result_label = customtkinter.CTkLabel(result_window, text=result_text) #Creates a label in the result window with the result text
+    result_label.place(relx=0.5, rely=0.4, anchor="center") #Places the result label in the center of the window
+    result_label.configure(font=Buttonfont, wraplength = 300) #Sets the font of the result label to the Scorefont variable
 
 buttons() #Runs the button function
 random_question() #Runs the random question function

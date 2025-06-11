@@ -1,40 +1,41 @@
 #Caden Read
 #L2 CSC
 
-import customtkinter #Imports a custom version of tkinter with better customisation options
-import os #Imports the users OS 
+import os #Imports the users OS
 import random #Imports the ability for randomization
-import tkinter as tk #Imports Tkinter as TK which allows the user to type TK instead of tkinter
+
+import customtkinter #Imports a custom version of tkinter with better customisation options
 
 root = customtkinter.CTk() #Sets up the main window
 root.title("Fake or Fact?") #Sets the text of the title of the main window
 root.geometry('1350x800') #Sets the size of thw window in pixels
 customtkinter.set_appearance_mode("dark") #Sets the window mode to dark
 
-font_path = os.path.join(os.path.dirname(__file__), "BebasNeue-Regular.ttf") #Uses the OS import to access the users folder that the program is located inside and searches for the file BebasNeue-Regular.ttf
+font_path = os.path.join(os.path.dirname(__file__), "BebasNeue-Regular.ttf") #Uses the OS import to access the users folder that the program is located 
+                                                                             #inside and searches for the file BebasNeue-Regular.ttf
 customtkinter.FontManager.load_font(font_path) #Uses the Custom tkinter import to handle importing the font
 
 #Sets the Bebas Neue
-Titlefont = customtkinter.CTkFont(family="Bebas Neue", size=100)
-Questionfont = customtkinter.CTkFont(family="Bebas Neue", size=60)
-Buttonfont = customtkinter.CTkFont(family="Bebas Neue", size=35)
-Scorefont = customtkinter.CTkFont(family="Bebas Neue", size=50)
+titlefont = customtkinter.CTkFont(family="Bebas Neue", size=100)
+questionfont = customtkinter.CTkFont(family="Bebas Neue", size=60)
+buttonfont = customtkinter.CTkFont(family="Bebas Neue", size=35)
+scorefont = customtkinter.CTkFont(family="Bebas Neue", size=50)
 
-Titlelbl = customtkinter.CTkLabel(root, text = "Fake or Fact?") #Creates a label on the main window and sets the text to Fake or fact?
-Titlelbl.place(relx = 0.5, rely = 0.1, anchor = "center") #Sets the location of the label to 50% of the x pixels, and 10% of the y pixels
-Titlelbl.configure(font=Titlefont) #Uses the CTK configure method to set the font of the text to the Titlefont variable
+titlelbl = customtkinter.CTkLabel(root, text = "Fake or Fact?") #Creates a label on the main window and sets the text to Fake or fact?
+titlelbl.place(relx = 0.5, rely = 0.1, anchor = "center") #Sets the location of the label to 50% of the x pixels, and 10% of the y pixels
+titlelbl.configure(font=titlefont) #Uses the CTK configure method to set the font of the text to the Titlefont variable
 
 score = 0 #Sets score to 0
 scoretxt = customtkinter.CTkLabel(root, text = f"Score: {score}") #Creates the score label and sets the text to score and the value of the score variable
-scoretxt.configure(font=Scorefont) #Uses the CTK configure method to set the font of the text to the Titlefont variable
-scoretxt.place(relx= 0.85, rely = 0.1)#Sets the location of the label to 85% of the x pixels, and 10% of the y pixels
+scoretxt.configure(font = scorefont) #Uses the CTK configure method to set the font of the text to the Titlefont variable
+scoretxt.place(relx= 0.85, rely = 0.1) #Sets the location of the label to 85% of the x pixels, and 10% of the y pixels
 
-question_count = 0 #Sets the question count to 0
+question_count = 29 #Sets the question count to 0
 total_questions = 30 #Sets the total number of questions to 30
-passing_score  = 24 #Sets the passing score to 24
+passing_score = 24 #Sets the passing score to 24
 
 #List of questions with the key being their true or false answer
-question_list= {
+question_list = {
         "NASA announced it will send cats to Mars to test their ability to always land on their feet.": False,
         "A penguin won mayoral elections in a small town in Norway.": True,
         "Google plans to replace all search results with AI-generated memes.": False,
@@ -145,14 +146,15 @@ def buttons():
 
     global btnfake, btnfact #Sets the buttons to global so they can be accessed outside of the function
     btnfake = customtkinter.CTkButton(root, text = "FAKE" , text_color = "White", command=fakeclicked) #Sets up the fake button with the text fake and sets the command of it to the fakeclicked fucntion
-    btnfake.configure(fg_color = "Red", width = 400, height = 80, font=Buttonfont) #Configures the fake button to be red and sets its font to Buttonfont
+    btnfake.configure(fg_color = "Red", width = 400, height = 80, font=buttonfont) #Configures the fake button to be red and sets its font to Buttonfont
     btnfake.pack( padx=  200, pady = 40) #Adds padding around the button so its not just the size of the text
     btnfake.place(relx = 0.1, rely = 0.8, anchor = "w") #Places the button in the correct place and sets its anchor to the west side of the button
 
     btnfact = customtkinter.CTkButton(root, text = "FACT", text_color = "White", command=factclicked) #Sets up the fact button with the text fact and sets the command of it to the factclicked fucntion
-    btnfact.configure(fg_color = "Green", width = 400, height = 80, font=Buttonfont) #Configures the fact button to be red and sets its font to Buttonfont
+    btnfact.configure(fg_color = "Green", width = 400, height = 80, font=buttonfont) #Configures the fact button to be red and sets its font to Buttonfont
     btnfact.pack( padx=  200, pady = 40) #Adds padding around the button so its not just the size of the text
     btnfact.place(relx = 0.9, rely = 0.8, anchor = "e") #Places the button in the correct place and sets its anchor to the east side of the button
+
 
 def random_question():
     """Function to get a random question from the question_list dictionary
@@ -166,8 +168,9 @@ def random_question():
         Questionlbl.configure(text = random_question) #Changes the text of the questionlbl  
     else:
         Questionlbl = customtkinter.CTkLabel(root, text=random_question, text_color="white", wraplength=800, justify="center") #Sets up the Questionlbl function as text and configures it
-        Questionlbl.configure(font=Questionfont) #Uses the CTK configure method to set the font of the text to the Titlefont variable
-        Questionlbl.place(relx = 0.5, rely = 0.3, anchor = "center") #Places the questionlbl at the correct place. 
+        Questionlbl.configure(font=questionfont) #Uses the CTK configure method to set the font of the text to the Titlefont variable
+        Questionlbl.place(relx = 0.5, rely = 0.3, anchor = "center") #Places the questionlbl at the correct place.
+
 
 def fakeclicked():
     """Function to handle the fake button click
@@ -183,11 +186,11 @@ def fakeclicked():
     else:
         latest_answer = "INCORRECT" #Sets the latest answer varible to incorrect
 
-    question_count += 1  # Adds 1 to the question count variable
+    question_count += 1 #Adds 1 to the question count variable
 
-    if question_count == total_questions: # Checks if the question count is equal to the total number of questions
-        scoretxt.configure(text=f"Score: {score}")  # Update score on main window
-        show_results() # Runs the show results function to show the results of the game
+    if question_count == total_questions: #Checks if the question count is equal to the total number of questions
+        scoretxt.configure(text=f"Score: {score}") #Update score on main window
+        show_results() #Runs the show results function to show the results of the game
     else:
         answer_window = customtkinter.CTkToplevel(root) #Creates a new window ontop of the old window
         answer_window.title("ANSWER") #Sets the title of the window
@@ -205,9 +208,11 @@ def fakeclicked():
 
         random_question() #Runs the random question function to get a new question
 
+
 def factclicked():
     """Function to handle the fact button click
     This function checks if the user's answer is correct or not, updates the score and question count, and shows the next question or results."""
+    
     global question_count #Sets the question count variable to global so it can be accessed and changed outside of the function
     global score #Sets the score variable to global so it can be accessed and changed outside of the function
 
@@ -240,6 +245,7 @@ def factclicked():
 
         random_question() #Runs the random question function to get a new question
 
+
 def show_results():
     """Function to show the results of the game
     This function creates a new window to show the results of the game and disables the buttons so they cant be clicked again"""
@@ -260,7 +266,7 @@ def show_results():
 
     result_label = customtkinter.CTkLabel(result_window, text=result_text) #Creates a label in the result window with the result text
     result_label.place(relx=0.5, rely=0.4, anchor="center") #Places the result label in the center of the window
-    result_label.configure(font=Buttonfont, wraplength = 300) #Sets the font of the result label to the Scorefont variable
+    result_label.configure(font=buttonfont, wraplength = 300) #Sets the font of the result label to the Scorefont variable
 
 buttons() #Runs the button function
 random_question() #Runs the random question function

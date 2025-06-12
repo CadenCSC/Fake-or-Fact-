@@ -1,4 +1,4 @@
-# ?Fake or Fact?
+# Fake or Fact?
 
 **Fake or Fact** is a interactive python quiz game build using customtkinter. The objective of this programme is to help people learn to seperate truthful statements from false statements.
 
@@ -24,7 +24,6 @@
 
  - **Python 3.12**
  - **customtkinter** - for modern GUI creation
- - **tkinter** - base GUI framework
  - **random** - to change the news that is displayed
  - **os** - to handle importation of the font
 

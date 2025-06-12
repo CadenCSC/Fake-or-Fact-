@@ -1,6 +1,6 @@
 # Fake or Fact?
 
-**Fake or Fact** is a interactive python quiz game build using customtkinter. The objective of this programme is to help people learn to seperate truthful statements from false statements.
+**Fake or Fact** is a interactive python quiz game build using customtkinter. The objective of this programme is to help people learn to seperate truthful statements from false statement, This program is trying to address the need for digital spaces that let younger individuals feel better about themselves in a world where online presence is a part of most people's daily life.
 
 ---
 

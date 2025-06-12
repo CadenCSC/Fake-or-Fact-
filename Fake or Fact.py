@@ -140,6 +140,11 @@ question_list = {
         "The moon is made of cheese, but only in Switzerland.": False
     }
 
+
+prev_score = [
+    ]
+
+
 def buttons():
     """Function to create the buttons for the game"
     This function creates the buttons for the game and sets their commands to the functions that handle the button clicks"""
@@ -154,6 +159,11 @@ def buttons():
     btnfact.configure(fg_color = "Green", width = 400, height = 80, font=buttonfont) #Configures the fact button to be red and sets its font to Buttonfont
     btnfact.pack( padx=  200, pady = 40) #Adds padding around the button so its not just the size of the text
     btnfact.place(relx = 0.9, rely = 0.8, anchor = "e") #Places the button in the correct place and sets its anchor to the east side of the button
+
+    prevscorebtn = customtkinter.CTkButton(root, text = "Previous Scores", text_color = "White", command=prevscorebtn_clicked) #Sets up the previous score button with the text Previous Scores and sets the command of it to the prevscorebtn_clicked function
+    prevscorebtn.configure(fg_color = "Blue", width = 200, height = 50, font=buttonfont) #Configures the previous score button to be blue and sets its font to Buttonfont
+    prevscorebtn.pack(padx=100, pady=20) #Adds padding around the button so its not just the size of the text
+    prevscorebtn.place(x = 10, y = 35, anchor = "w") #Places the button in the correct place and sets its anchor to the west side of the button
 
 
 def random_question():
@@ -246,9 +256,29 @@ def factclicked():
         random_question() #Runs the random question function to get a new question
 
 
+def prevscorebtn_clicked():
+    
+    prev_score_window = customtkinter.CTkToplevel(root) #Creates a new window ontop of the old window
+    prev_score_window.title("Previous Scores") #Sets the title of the window
+    prev_score_window.transient(root) #Makes the window be associated with the root window
+    prev_score_window.grab_set() #Makes it so the user has to interact with this window before the main window.
+    prev_score_window.geometry('400x300') #Sets the size of the window
+
+    if not prev_score:
+        scorestext = "No previous scores available." 
+    else:
+        scorestext = "Previous scores:\n" + "\n".join(str(score) for score in prev_score) 
+    
+    scorelbl = customtkinter.CTkLabel(prev_score_window, text = scorestext) #Creates a label in the previous score window with the score text
+    scorelbl.place(relx=0.5, rely=0.4, anchor="center") #Places the score label in the center of the window
+    scorelbl.configure(font=buttonfont, wraplength = 300) #Sets the font of the score label to the Scorefont variable
+
+
 def show_results():
     """Function to show the results of the game
     This function creates a new window to show the results of the game and disables the buttons so they cant be clicked again"""
+
+    global result_window
 
     btnfake.configure(state="disabled") #Disables the fake button so it cannot be clicked
     btnfact.configure(state="disabled") #Disables the fact button so it cannot be clicked
@@ -267,6 +297,24 @@ def show_results():
     result_label = customtkinter.CTkLabel(result_window, text=result_text) #Creates a label in the result window with the result text
     result_label.place(relx=0.5, rely=0.4, anchor="center") #Places the result label in the center of the window
     result_label.configure(font=buttonfont, wraplength = 300) #Sets the font of the result label to the Scorefont variable
+
+    prev_score.append(score) #Appends the score to the prev_score list to keep track of the scores
+
+    restart_button = customtkinter.CTkButton(result_window, text="Restart", command=restart_game) #Creates a button to restart the game
+    restart_button.place(relx=0.5, rely=0.7, anchor="center") #Places the restart button in the center of the window
+    restart_button.configure(fg_color="Orange", width=200, height=50, font=buttonfont) #Configures the restart button to be orange and sets its font to Buttonfont
+
+
+def restart_game():
+    """Function to restart the game
+    This function resets the score, question count, and enables the buttons again, then generates a new question"""
+    global score, question_count, prev_score #Sets the score, question count and prev_score variables to global so they can be accessed and changed outside of the function
+    score = 0 #Resets the score to 0
+    question_count = 0 #Resets the question count to 0
+    btnfake.configure(state="normal") #Enables the fake button so it can be clicked again
+    btnfact.configure(state="normal") #Enables the fact button so it can be clicked again
+    scoretxt.configure(text=f"Score: {score}") #Updates the score label to show the new score
+    result_window.destroy() #Closes the result window if it is open
 
 buttons() #Runs the button function
 random_question() #Runs the random question function

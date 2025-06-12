@@ -30,7 +30,7 @@ scoretxt = customtkinter.CTkLabel(root, text = f"Score: {score}") #Creates the s
 scoretxt.configure(font = scorefont) #Uses the CTK configure method to set the font of the text to the Titlefont variable
 scoretxt.place(relx= 0.85, rely = 0.1) #Sets the location of the label to 85% of the x pixels, and 10% of the y pixels
 
-question_count = 29 #Sets the question count to 0
+question_count = 0 #Sets the question count to 0
 total_questions = 30 #Sets the total number of questions to 30
 passing_score = 24 #Sets the passing score to 24
 

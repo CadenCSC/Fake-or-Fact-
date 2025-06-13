@@ -16,10 +16,10 @@ font_path = os.path.join(os.path.dirname(__file__), "BebasNeue-Regular.ttf") #Us
 customtkinter.FontManager.load_font(font_path) #Uses the Custom tkinter import to handle importing the font
 
 #Sets the Bebas Neue
-titlefont = customtkinter.CTkFont(family="Bebas Neue", size=100)
-questionfont = customtkinter.CTkFont(family="Bebas Neue", size=60)
-buttonfont = customtkinter.CTkFont(family="Bebas Neue", size=35)
-scorefont = customtkinter.CTkFont(family="Bebas Neue", size=50)
+titlefont = customtkinter.CTkFont(family = "Bebas Neue", size=100)
+questionfont = customtkinter.CTkFont(family = "Bebas Neue", size=60)
+buttonfont = customtkinter.CTkFont(family = "Bebas Neue", size=35)
+scorefont = customtkinter.CTkFont(family = "Bebas Neue", size=50)
 
 titlelbl = customtkinter.CTkLabel(root, text = "Fake or Fact?") #Creates a label on the main window and sets the text to Fake or fact?
 titlelbl.place(relx = 0.5, rely = 0.1, anchor = "center") #Sets the location of the label to 50% of the x pixels, and 10% of the y pixels
@@ -150,6 +150,7 @@ def buttons():
     This function creates the buttons for the game and sets their commands to the functions that handle the button clicks"""
 
     global btnfake, btnfact #Sets the buttons to global so they can be accessed outside of the function
+
     btnfake = customtkinter.CTkButton(root, text = "FAKE" , text_color = "White", command=fakeclicked) #Sets up the fake button with the text fake and sets the command of it to the fakeclicked fucntion
     btnfake.configure(fg_color = "Red", width = 400, height = 80, font=buttonfont) #Configures the fake button to be red and sets its font to Buttonfont
     btnfake.pack( padx=  200, pady = 40) #Adds padding around the button so its not just the size of the text
@@ -308,12 +309,15 @@ def show_results():
 def restart_game():
     """Function to restart the game
     This function resets the score, question count, and enables the buttons again, then generates a new question"""
+
     global score, question_count, prev_score #Sets the score, question count and prev_score variables to global so they can be accessed and changed outside of the function
     score = 0 #Resets the score to 0
     question_count = 0 #Resets the question count to 0
+
     btnfake.configure(state="normal") #Enables the fake button so it can be clicked again
     btnfact.configure(state="normal") #Enables the fact button so it can be clicked again
     scoretxt.configure(text=f"Score: {score}") #Updates the score label to show the new score
+
     result_window.destroy() #Closes the result window if it is open
 
 buttons() #Runs the button function
